@@ -18,7 +18,7 @@ Private Sub CreateTableOfContents()
     Dim wsSheet     As Worksheet
     Dim ws          As Worksheet
     Dim Counter     As Long
-    Dim arrKey(100000000)
+    Dim arrKey(100000000) As Variant
 
     On Error Resume Next
     Set wsSheet = Sheets("Hiep123")
@@ -41,6 +41,9 @@ Private Sub CreateTableOfContents()
             wsSheet.Cells(Counter + 4, 1).Value = Counter
             ' wsSheet.Cells(Counter + 4, 3).Value =  ws.Range("C5:C100").value
             wsSheet.Cells(Counter + 4, 2).Value = ws.Name
+            wsSheet.Cells(Counter + 4, 2).Font.Bold = True
+            wsSheet.Cells(Counter + 4, 2).Font.Size = 12
+                                        
            
             Dim indexRange
             indexRange = 5
@@ -48,30 +51,27 @@ Private Sub CreateTableOfContents()
             Dim valueFist
             valueFist = ws.Cells(5, 3)
             
+                'Set ColumnWidth
+            With Columns("C:D")
+                .ColumnWidth = 30
+            End With
             
-            For Each Item In ws.Range("C5:C100")
-                ' wsSheet.Cells(Counter + 4, 3).Value = item
-
-                ' Range(ws.Cells(indexRange, 3),  ws.Cells(indexRange, 24)).Select
-                ' Selection.Copy
-
-                ' ws.Range("C5:Y5").Select
-                ' Selection.Copy
-
-                ' Range(wsSheet.Cells(Counter + 4)).Select
-                ' wsSheet.Range("C"&Counter + 4).Select
-                ' ActiveSheet.Paste
+            For Each Item In ws.Range("C5:C64")
+            
                 Dim isExist
+                   ' MsgBox ("Value stored in Array index 0 : " & Item)
+
+                
                 isExist = in_array(arrKey, Item, indexRange + 1)
 
                 If isExist = False Then
                     arrKey(indexRange) = Item
                      wsSheet.Cells(Counter + 4, 3).Value = Item
                      wsSheet.Cells(Counter + 4, 4).Value = valueFist
-                     
+                     indexRange = indexRange + 1
                 End If
 
-                indexRange = indexRange + 1
+                
                 If Len(Item) > 0 Then
                     Counter = Counter + 1
                 End If
