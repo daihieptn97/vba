@@ -1,11 +1,11 @@
 
-Function in_array(my_array, my_value)
+Function in_array(my_array, my_value, max)
     
     'https://www.excel-pratique.com/en/vba_tricks/search-in-array-function
-	
+    
     in_array = False
     
-    For i = 0 To UBound(my_array)
+    For i = 5 To max Step 1
         If my_array(i) = my_value Then 'If value found
             in_array = True
             Exit For
@@ -18,7 +18,7 @@ Private Sub CreateTableOfContents()
     Dim wsSheet     As Worksheet
     Dim ws          As Worksheet
     Dim Counter     As Long
-    Dim arrKey()
+    Dim arrKey(100000000)
 
     On Error Resume Next
     Set wsSheet = Sheets("Hiep123")
@@ -44,9 +44,13 @@ Private Sub CreateTableOfContents()
            
             Dim indexRange
             indexRange = 5
-
-            For Each item In ws.Range("C5:C100")
-                wsSheet.Cells(Counter + 4, 3).Value = item
+            
+            Dim valueFist
+            valueFist = ws.Cells(5, 3)
+            
+            
+            For Each Item In ws.Range("C5:C100")
+                ' wsSheet.Cells(Counter + 4, 3).Value = item
 
                 ' Range(ws.Cells(indexRange, 3),  ws.Cells(indexRange, 24)).Select
                 ' Selection.Copy
@@ -58,17 +62,20 @@ Private Sub CreateTableOfContents()
                 ' wsSheet.Range("C"&Counter + 4).Select
                 ' ActiveSheet.Paste
                 Dim isExist
-                isExist = in_array(arrKey, item)
+                isExist = in_array(arrKey, Item, indexRange + 1)
 
                 If isExist = False Then
-                    arrKey(UBound(arrKey) + 1) = item
+                    arrKey(indexRange) = Item
+                     wsSheet.Cells(Counter + 4, 3).Value = Item
+                     wsSheet.Cells(Counter + 4, 4).Value = valueFist
+                     
                 End If
 
                 indexRange = indexRange + 1
-                if Len(item) > 0 Then
+                If Len(Item) > 0 Then
                     Counter = Counter + 1
                 End If
-            Next item
+            Next Item
             Counter = Counter + 1
         End If
     Next ws
@@ -76,3 +83,5 @@ Private Sub CreateTableOfContents()
     
     Set xlSheet = Nothing
 End Sub
+
+
