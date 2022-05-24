@@ -142,7 +142,7 @@ For i = 1 To (countAccessories - 1)
         End If
     Next ws
     ' end for Worksheets
-    Counter = Counter + 1
+    ' Counter = Counter + 1
 Next i
 
 
