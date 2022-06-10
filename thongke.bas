@@ -11,7 +11,7 @@ Function in_array(my_array, my_value, max)
 End Function
 
 Function log_cel(my_array, my_value, max)
-     For Each Item In ws.Range("C6:C64")
+     For Each Item In ws.Range("C6:C500")
         Dim isExist
         isExist = in_array(arrAccessories, Item, countAccessories)
         If isExist = False Then
@@ -59,16 +59,16 @@ Columns("H:H").ColumnWidth = 30
 Columns("I:I").ColumnWidth = 30
 
 Range("A3") = "STT"
-Range("A3").Font.Bold = TRUE
+Range("A3").Font.Bold = True
 
 Range("B3") = "Tên sheet"
-Range("B3").Font.Bold = TRUE
+Range("B3").Font.Bold = True
 
 Range("C3") = "ten linh kien"
-Range("C3").Font.Bold = TRUE
+Range("C3").Font.Bold = True
 
 Range("D3") = "ten thanh pham"
-Range("D3").Font.Bold = TRUE
+Range("D3").Font.Bold = True
 
 
 
@@ -78,7 +78,7 @@ For Each ws In Worksheets
         ' arrProduct(countProduct) = ws.Name
         ' countProduct = countProduct + 1
 
-        For Each Item In ws.Range("C6:C64")
+        For Each Item In ws.Range("C6:C500")
             Dim isExist
             isExist = in_array(arrAccessories, Item, countAccessories)
             If isExist = False And Item <> "" Then
@@ -106,7 +106,7 @@ For i = 1 To (countAccessories - 1)
             
             Dim indexRange
             indexRange = 6
-            For Each Item In ws.Range("C6:C64")
+            For Each Item In ws.Range("C6:C500")
                 If Item = arrAccessories(i) Then
                     wsSheet.Cells(Counter + 4, 2).Value = ws.Name
                     wsSheet.Cells(Counter + 4, 3).Value = Item
@@ -145,19 +145,6 @@ For i = 1 To (countAccessories - 1)
     ' Counter = Counter + 1
 Next i
 
-
-' For i = 1 To (countAccessories - 1)
-' wsSheet.Cells(Counter + 4, 3).Value = Counter
-'      wsSheet.Cells(Counter + 4, 4).Value = arrAccessories(i)
-'         Counter = Counter + 1
-' Next i
-
-
 End Sub
-
-
-
-
-
 
 
